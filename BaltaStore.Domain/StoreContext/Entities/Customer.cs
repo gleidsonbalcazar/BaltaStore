@@ -1,22 +1,33 @@
+using System.Collections.Generic;
+using System.Linq;
+using BaltaStore.Domain.StoreContext.ValueObjects;
+
 namespace BaltaStore.Domain.StoreContext.Entities {
     public class Customer {
-        public Customer (string firstName, string lastName, string document, string email, string phone, string address) {
-            FirstName = firstName;
-            LastName = lastName;
+
+        private readonly IList<Address> _addressess;
+
+        public Customer (Name name, string lastName, Document document, Email email, string phone) {
+            Name = name;
             Document = document;
             Email = email;
             Phone = phone;
-            Address = address;
+            _addressess = new List<Address>();
         }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Document { get; private set; }
-        public string Email { get; private set; }
+        
+        public Name Name {get; private set;}
+        public Document Document { get; private set; }
+        public Email Email { get; private set; }
         public string Phone { get; private set; }
-        public string Address { get; private set; }
+        public IReadOnlyCollection<Address> Addressess  =>_addressess.ToArray();
+
+        public void AddAddress(Address address){
+            //validar endereco
+            _addressess.Add(address);
+        }
 
         public override string ToString () {
-            return $"{FirstName + LastName}";
+            return Name.ToString();
         }
     }
 }
