@@ -1,7 +1,8 @@
 using BaltaStore.Domain.StoreContext.Enums;
+using FluentValidator;
 
 namespace BaltaStore.Domain.StoreContext.Entities {
-    public class Address {
+    public class Address :Notifiable {
 
         public Address (
             string street,
